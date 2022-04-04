@@ -1,1 +1,1 @@
-A session on shell basics
+Hello world script
