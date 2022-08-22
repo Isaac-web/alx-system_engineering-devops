@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#loop from 1 through 20 and print "bad luck fron China" on the 4th iteration, "bad luck  from Japan" 9th iteration and "Bad luck from Italy" on the 7th iteration
+
+count=1
+while [ $count -le 20 ]
+do
+	echo "$count"
+	if [ $count -eq 4 ]
+	then
+		 echo "bad luck from China"
+	elif [ $count -eq 9 ]
+	then
+		echo "bad luck from Japan"
+	elif [ $count -eq 17 ]
+	then
+		echo "bad luck from Italy"
+	fi
+	((count++))
+done
