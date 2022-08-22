@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# get info of a file
 
 if [ -e school ]
 then
