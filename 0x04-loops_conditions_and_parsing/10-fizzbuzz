@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+for ((c=1; c<=100; c++))
+do
+	if [[ c%5 -eq 0 && c%3 -eq 0  ]]
+	then
+		echo "FizzBuzz"
+	elif [[ c%5 -eq 0 ]]
+	then
+		echo "Buzz"
+	elif [[ c%3 -eq 0 ]]
+	then
+		echo "Fizz"
+	else
+		echo "$c"
+	fi
+done
