@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# List the networks that are currently listening and include the programes running them
+
+netstat -nlp
