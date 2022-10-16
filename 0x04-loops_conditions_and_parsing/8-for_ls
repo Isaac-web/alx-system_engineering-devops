@@ -2,7 +2,7 @@
 #prints the names of files in the current directory
 
 
-list=$(ls)
+list=$("ls")
 for i in $list
 do 
 	echo "$i" | cut -d '-' -f2
