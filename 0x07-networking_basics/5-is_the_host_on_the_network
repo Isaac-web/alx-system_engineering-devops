@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 
 IP_ADDRESS=$1
 
@@ -7,4 +8,13 @@ then
 	echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
 else
 	ping -c 5 "$IP_ADDRESS"
+=======
+# Pings an IP address received as a string argument 5 times.
+
+if [ "$#" -eq 0 ]
+then
+  echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+else
+  ping -c 5 "$1"
+>>>>>>> ba5c7a6475df452383e24f4c8b3133c10b75487b
 fi
