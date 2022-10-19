@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #install and congfigure nginx
 
 apt-get update -y &&\
