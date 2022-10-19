@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+#install and congfigure nginx
+
+apt-get update -y &&\
+apt-get install -y nginx
+
+if [ $? -eq 0 ]
+then
+	echo -e \
+"
+event{
+}
+http {
+	root /var/www/school;
+	index index.html index.htm;
+
+	server {
+		listen 80;
+		location \ {
+		}
+	}
+}
+" > /etc/nginx/nginx.conf
+mkdir -p /var/www/school
+echo "Hello World" > /var/www/school/index.html
+
+systemctl start nginx
+if [ $? -ne 0 ]
+then 
+	echo "Could not start nginx"
+	exit 1
+fi
+
+else
+	echo "Could not install nginx"
+fi
+exit 0
