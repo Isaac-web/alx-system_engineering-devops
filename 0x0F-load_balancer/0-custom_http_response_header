@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
-#install and configure nginx
+# install and configure nginx
 
-apt-get update -y &&
+apt-get update -y && 
 apt-get install -y nginx
 
-if [ $? -eq 0 ]
+if [ "$?" -eq 0 ]
 then
-	echo -e
+	echo -e \
 "
 events {
 }
 
 http {
-	root /www/var/school;
+	root /var/www/school;
 	index index.html;
 	server {
 		listen 80;
+		add_header X-Served-By $host;
 		location \ {
 		}
-		add_header X-Served-By $host;
 	}
 }
 " > /etc/nginx/nginx.conf
@@ -26,15 +26,16 @@ mkdir -p /var/www/school
 chmod 755 /var/www/school
 echo "Hello World" > /var/www/school/index.html
 chmod 755 /var/www/school/index.html
-
 systemctl start nginx
-if [ $? -ne 0 ]
-then
+
+if [ "$?" -ne 0  ]
+then 
 	echo "Could not start nginx"
 	exit 1
 fi
-else 
-	echo "Could not install nginx."
+
+else
+	echo "Could not install nginx"
 	exit 1
-fi 
+fi
 exit 0
