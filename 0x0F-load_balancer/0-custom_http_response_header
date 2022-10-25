@@ -16,7 +16,7 @@ http {
 	index index.html;
 	server {
 		listen 80;
-		add_header X-Served-By $host;
+		add_header X-Served-By $HOSTNAME;
 		location \ {
 		}
 	}
