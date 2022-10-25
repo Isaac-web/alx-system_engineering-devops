@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#install and configure haproxy
+
+apt-get update -y &&
+apt-get install -y haproxy
+
+if [ $? -eq 0 ]
+then
+	cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
+	echo -e \
+"
+frontend haproxy-main
+	bind 127.0.0.1:9000
+	acl blog_path path_beg /blog
+	default_servers nginx_servers
+
+backend nginx_server
+	balance roundrobin
+	server web-01 3.239.72.122 check
+	server web-02 100.26.9.9 check
+" > /etc/haproxy/haproxy.cfg
+
+systemctl start haproxy
+
+if [ $? -ne 0 ]
+then
+	echo "Could not start HAproxy"
+	exit 1
+else
+	echo "All is set."
+fi
+else 
+	echo "Failed to intall HA proxy."
+	exit 1
+fi
+exit 1
