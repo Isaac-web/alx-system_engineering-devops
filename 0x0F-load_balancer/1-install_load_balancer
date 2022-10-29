@@ -1,36 +1,11 @@
 #!/usr/bin/env bash
-#install and configure haproxy
+# Install the load balancer
 
-apt-get update -y &&
-apt-get install -y haproxy
 
-if [ $? -eq 0 ]
-then
-	cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
-	echo -e \
-"
-frontend haproxy-main
-	bind 127.0.0.1:9000
-	acl blog_path path_beg /blog
-	default_servers nginx_servers
-
-backend nginx_server
-	balance roundrobin
-	server web-01 3.239.72.122 check
-	server web-02 100.26.9.9 check
-" >> /etc/haproxy/haproxy.cfg
-
-systemctl restart haproxy
-
-if [ $? -ne 0 ]
-then
-	echo "Could not restart HAproxy"
-	exit 
-else
-	echo "All is set."
-fi
-else 
-	echo "Failed to intall HA proxy."
-	exit 1
-fi
-exit 1
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install haproxy
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
+sudo sed -i "$ a\listen 540-lb-01\n\tbind *:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 540-web-02 3.234.218.189:80 check\n\tserver 540-web-01 35.196.96.41:80 check" /etc/haproxy/haproxy.cfg
+sudo service haproxy start
