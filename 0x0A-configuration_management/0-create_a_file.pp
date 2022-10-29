@@ -1,3 +1,5 @@
+#create a file /tmp/schoo
+
 file {'/tmp/school';
 mode => '0744',
 owner => 'www-data',
