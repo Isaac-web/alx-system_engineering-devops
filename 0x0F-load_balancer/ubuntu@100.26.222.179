@@ -18,14 +18,14 @@ backend nginx_server
 	balance roundrobin
 	server web-01 3.239.72.122 check
 	server web-02 100.26.9.9 check
-" >> /etc/haproxy/haproxy.cfg
+" > /etc/haproxy/haproxy.cfg
 
-systemctl restart haproxy
+systemctl start haproxy
 
 if [ $? -ne 0 ]
 then
-	echo "Could not restart HAproxy"
-	exit 
+	echo "Could not start HAproxy"
+	exit 1
 else
 	echo "All is set."
 fi
