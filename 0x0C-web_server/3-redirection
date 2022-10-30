@@ -3,7 +3,7 @@
 
 sudo apt-get update -y && \
 sudo apt-get install -y nginx
-if [ $? -eq 0 ]
+if (( $? == 0 ))
 then
     echo -e \
 "http {
@@ -22,7 +22,7 @@ events {
     echo "Hello World!" > \
 	/var/www/school/index.html
     service nginx start
-    if [ $? -ne 0 ]
+    if (( $? == 0 ))
     then
 	"Problem starting nginx"
 	exit 1
