@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#install ngix and have a file that returns the string "Hello World  inside
+
+sudo apt-get update -y && \
+sudo apt-get install -y nginx
+echo -e \
+"http {
+    root /var/www/school;
+    index index.html;
+    server {
+        listen 80;
+	rewrite ^/redirect_me https://https://www.youtube.com/watch?v=QH2-TGUl;
+	error_page 404 /not_found.html;
+	
+        location \ {
+        }
+    }
+}
+events {
+}" > /etc/nginx/nginx.conf
+mkdir -p /var/www/school
+chown -R $USER:$SUSER /var/www/school
+chmod -R 755 /var/www
+echo "Hello World!" > /var/www/school/index.html
+echo "Ceci n'est pas une page" > /var/www/school/not_found.html
+
+service nginx start
+exit 0
