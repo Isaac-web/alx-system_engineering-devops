@@ -1,37 +1,34 @@
 #!/usr/bin/env bash
-#install and congfigure nginx
+#install and configure nginx on
 
-apt-get update -y &&\
-apt-get install -y nginx
-
-if [ $? -eq 0 ]
+apt-get -y update && apt-get install -y nginx
+if [ $? -eq 0 ] 
 then
-	echo -e \
-"
-event{
-}
-http {
-	root /var/www/school;
-	index index.html index.htm;
+	#create directory and file to be served
+	mkdir -p /var/www/school/html
+	chown -R $USER:$USER /var/www/school/html
+	chown -R 755 /var/www
+	echo "Hello World!!" > /var/www/school/html/index.html
 
-	server {
-		listen 80;
-		location \ {
-		}
+	#configure nginx
+	cp /etc/nginx/sites-available/default /etc/nginx/sites-available/school
+	echo -e "server {
+	listen 80;
+	listen [::]:80;
+	root /var/www/school/html;
+	index index.html;
+	location / {
+		try_files $url $url/ =404;
 	}
-}
-" > /etc/nginx/nginx.conf
-mkdir -p /var/www/school
-echo "Hello World" > /var/www/school/index.html
+	
+}" > /etc/nginx/sites-available/school
+ln -s /etc/nginx/sites-available/school /etc/nginx/sites-enabled/
 
-systemctl start nginx
+systemctl restart nginx
 if [ $? -ne 0 ]
 then 
 	echo "Could not start nginx"
-	exit 1
 fi
-
 else
-	echo "Could not install nginx"
+	echo "Could not install nginx."
 fi
-exit 0
