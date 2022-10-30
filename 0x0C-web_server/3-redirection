@@ -1,17 +1,33 @@
 #!/usr/bin/env bash
 #configure nginx to redirect /redirect_me to a different page
-echo -e \
-"http {
-    root /var/www/school;
-    index index.html;
-    server {
-        listen 80;
-        location \ {
-        }
-    rewrite ^/redirect_me https://www.google.com permanent;
-    }
-}
-events {
-}" > /etc/nginx/nginx.conf
+#echo -e \
+#"http {
+#    root /var/www/school;
+#    index index.html;
+#    server {
+#        listen 80;
+#        location \ {
+#        }
+#    rewrite ^/redirect_me https://www.google.com permanent;
+#    }
+#}
+#events {
+#}" > /etc/nginx/nginx.conf
 
-systemctl restart nginx
+#systemctl restart nginx
+
+#!/usr/bin/env bash
+# Install nginx, set up to listen to port 80 and change default page served to
+# "Holberton School"
+# Configure Nginx server so that /redirect_me is redirecting to another page
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
+
+# configure redirection
+new_str="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUl\
+wu4 permanent;"
+sudo sed -i "42i $new_str" /etc/nginx/sites-available/default
+sudo service nginx restart
