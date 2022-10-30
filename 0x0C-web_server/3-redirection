@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
-#install ngix and have a file that returns the string "Hello World  inside
-
-sudo apt-get update -y && \
-sudo apt-get install -y nginx
-if (( $? == 0 ))
-then
-    echo -e \
+#configure nginx to redirect /redirect_me to a different page
+echo -e \
 "http {
     root /var/www/school;
     index index.html;
@@ -18,17 +13,5 @@ then
 }
 events {
 }" > /etc/nginx/nginx.conf
-    mkdir -p /var/www/school
-    echo "Hello World!" > \
-	/var/www/school/index.html
-    service nginx start
-    if (( $? == 0 ))
-    then
-	"Problem starting nginx"
-	exit 1
-    fi
-else
-    echo "Could not install nginx"
-    exit 1
-fi
-exit 0
+
+systemctl restart nginx
