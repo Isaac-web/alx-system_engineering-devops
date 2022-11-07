@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+#This script configures ufw to block incoming traffic
+#except for ssh, http and https
+
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22
