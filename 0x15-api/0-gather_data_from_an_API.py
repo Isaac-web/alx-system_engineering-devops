@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 Retrieves an employees data
 with his todo list
