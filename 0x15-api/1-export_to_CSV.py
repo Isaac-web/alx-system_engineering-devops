@@ -35,6 +35,6 @@ if __name__ == "__main__":
 
     with open("{}.csv".format(argv[1]), "w", encoding="utf-8") as cfile:
         for i in all_todos:
-            str = "\"{}\", \"{}\", \"{}\", \"{}\""
+            str = "\"{}\", \"{}\", \"{}\", \"{}\""\
             .format(argv[1], emp_name, i['completed'], i["title"])
             cfile.write("{}\n".format(str))
