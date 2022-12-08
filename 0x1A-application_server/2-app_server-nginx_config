@@ -1,0 +1,23 @@
+# Nginx configuration file
+# Includes a proxy to passes to a flask app
+# on port 127.0.0.1:5000
+http {
+    root /var/www/school;
+    index index.html;
+    server {
+        listen 80;
+        rewrite ^/redirect_me https://https://www.youtube.com/watch?v=QH2-TGUl;
+        error_page 404 /not_found.html;
+        add_header X-Served-By "$HOSTNAME";
+
+        location /hbnb_static/ {
+                try_files $uri $uri/ /data/web_static/current;
+        }
+
+        location /airbnb-onepage/ {
+                include proxy_params;
+                proxy_pass http://localhost:5000;
+        }
+
+    }
+}
